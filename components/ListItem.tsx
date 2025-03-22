@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Easing,
   TouchableOpacity,
+  Touchable,
 } from "react-native";
 import React, { useEffect, useRef } from "react";
 import { CircularText } from "./CircularText";
@@ -19,10 +20,19 @@ interface Props {
   index: number;
   animatedValue: Animated.Value;
   scrollToPrevious: () => void;
+  isLiked: boolean;
+  onPressLike: (id: number) => void;
 }
 
 const ListItem = React.memo(
-  ({ item, index, animatedValue, scrollToPrevious }: Props) => {
+  ({
+    item,
+    index,
+    animatedValue,
+    scrollToPrevious,
+    isLiked,
+    onPressLike,
+  }: Props) => {
     const translateYAnim = useRef(new Animated.Value(20)).current;
 
     useEffect(() => {
@@ -144,16 +154,24 @@ const ListItem = React.memo(
             alignItems: "center",
           }}
         >
-          <Text
-            style={{
-              fontSize: 18,
-              textAlign: "center",
-              flexBasis: "50%",
-              color: item.isDark ? "white" : "black",
-            }}
+          <TouchableOpacity
+            style={{ flex: 1 }}
+            onPress={() => onPressLike(item.id)}
           >
-            {"\u2661"} Like
-          </Text>
+            <View style={{ flex: 1 }}>
+              <Text
+                style={{
+                  fontSize: 18,
+                  textAlign: "center",
+                  flexBasis: "50%",
+                  color: item.isDark ? "white" : "black",
+                  flex: 1,
+                }}
+              >
+                {isLiked ? "\u2665 Unlike" : "\u2661 Like"}
+              </Text>
+            </View>
+          </TouchableOpacity>
           <Text
             style={{
               fontSize: 18,

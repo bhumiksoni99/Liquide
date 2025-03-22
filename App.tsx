@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   FlatList,
   StyleSheet,
@@ -21,6 +21,7 @@ export default function App() {
   const flatListRef = useRef<NativeFlatList | null>(null);
   const scrollPosition = useRef(0);
   const currentIndex = useRef(0);
+  const [likedItems, setLikedItems] = useState<Array<number>>([]);
 
   const onScroll = (event: {
     nativeEvent: { contentOffset: { y: number } };
@@ -53,6 +54,17 @@ export default function App() {
     if (index !== currentIndex.current) {
       currentIndex.current = index;
       flatListRef.current?.scrollToIndex({ index, animated: true });
+    }
+  };
+
+  const onPressLike = (id: number) => {
+    const isLiked = likedItems.includes(id);
+    console.log(id, isLiked);
+    if (isLiked) {
+      const updatedLikes = likedItems.filter((l) => l !== id);
+      setLikedItems(updatedLikes);
+    } else {
+      setLikedItems((prev) => [...prev, id]);
     }
   };
 
@@ -101,6 +113,8 @@ export default function App() {
                 index={index}
                 animatedValue={animatedValues[index]}
                 scrollToPrevious={scrollToPrevious}
+                isLiked={likedItems.includes(item.id)}
+                onPressLike={onPressLike}
               />
             </ImageBackground>
           </View>
