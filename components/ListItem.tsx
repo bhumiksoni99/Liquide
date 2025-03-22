@@ -33,7 +33,7 @@ const ListItem = React.memo(
       }).start();
     }, []);
 
-    const renderIcon = () => (
+    const renderIcon = (item: Data) => (
       <View
         style={{
           height: 40,
@@ -44,13 +44,15 @@ const ListItem = React.memo(
           borderRadius: 6,
         }}
       >
-        <Text style={{ fontSize: 30 }}>{"\u2B06"}</Text>
+        <Text style={{ fontSize: 30, color: item.isDark ? "white" : "black" }}>
+          {"\u2B06"}
+        </Text>
       </View>
     );
     return (
       <View
         style={{
-          paddingVertical: StatusBar.currentHeight ?? 20 + 30,
+          marginVertical: StatusBar.currentHeight ?? 20 + 30,
           zIndex: 1,
           flex: 1,
           paddingHorizontal: 24,
@@ -67,12 +69,18 @@ const ListItem = React.memo(
           }}
         >
           <TouchableOpacity onPress={scrollToPrevious}>
-            {index > 0 && <Text style={{ fontSize: 48 }}>{"\u2B06"}</Text>}
+            {index > 0 && (
+              <Text
+                style={{ fontSize: 48, color: item.isDark ? "white" : "black" }}
+              >
+                {"\u2B06"}
+              </Text>
+            )}
           </TouchableOpacity>
 
           <View style={{ flexDirection: "row", gap: 16 }}>
-            {renderIcon()}
-            {renderIcon()}
+            {renderIcon(item)}
+            {renderIcon(item)}
           </View>
         </View>
         <View
@@ -86,14 +94,14 @@ const ListItem = React.memo(
           <View style={{ alignItems: "center" }}>
             <Animated.Text
               style={[
-                { color: "white", fontSize: 24 },
+                { color: item.isDark ? "white" : "black", fontSize: 24 },
                 {
                   opacity: animatedValue,
                   transform: [
                     {
                       translateX: animatedValue.interpolate({
                         inputRange: [0, 1],
-                        outputRange: [20, 0], // Moves up when visible
+                        outputRange: [20, 0],
                       }),
                     },
                   ],
@@ -105,14 +113,14 @@ const ListItem = React.memo(
             <Animated.Text
               style={[
                 styles.bigText,
-
+                { color: item.isDark ? "white" : "black" },
                 {
                   opacity: animatedValue,
                   transform: [
                     {
                       translateY: animatedValue.interpolate({
                         inputRange: [0, 1],
-                        outputRange: [20, 0], // Moves up when visible
+                        outputRange: [20, 0],
                       }),
                     },
                   ],
@@ -140,8 +148,8 @@ const ListItem = React.memo(
             style={{
               fontSize: 18,
               textAlign: "center",
-              color: "white",
               flexBasis: "50%",
+              color: item.isDark ? "white" : "black",
             }}
           >
             {"\u2661"} Like
@@ -150,8 +158,8 @@ const ListItem = React.memo(
             style={{
               fontSize: 18,
               textAlign: "center",
-              color: "white",
               flexBasis: "50%",
+              color: item.isDark ? "white" : "black",
             }}
           >
             {"\u21B1"} Share
