@@ -155,7 +155,7 @@ const ListItem = React.memo(
                 { color: item.isDark ? "white" : "black", flex: 1 },
               ]}
             >
-              {isLiked ? "\u2665 Unlike" : "\u2661 Like"}
+              {isLiked ? "\u2665   Unlike" : "\u2661   Like"}
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -168,7 +168,7 @@ const ListItem = React.memo(
                 { color: item.isDark ? "white" : "black" },
               ]}
             >
-              {"\u21B1"} Share
+              {"\u21B1  "} Share
             </Text>
           </TouchableOpacity>
         </View>
