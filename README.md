@@ -1,8 +1,9 @@
 The App is compatible with Expo GO. 
 
 Follow the above steps to start the app. Please not that node version should be > 18.
+  
   -npm install
-  - npm start
+  -npm start
 
 Features Implemented
  - Added All Animations as shown in demo video
