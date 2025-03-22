@@ -8,6 +8,7 @@ import {
   Easing,
   TouchableOpacity,
   Touchable,
+  Share,
 } from "react-native";
 import React, { useEffect, useRef } from "react";
 import { CircularText } from "./CircularText";
@@ -42,6 +43,17 @@ const ListItem = React.memo(
         useNativeDriver: true,
       }).start();
     }, []);
+
+    const shareContent = async (item: Data) => {
+      try {
+        await Share.share({
+          message: `${item.city} - ${item.subText}`,
+          title: "Amazing Content",
+        });
+      } catch (error) {
+        console.error("Error sharing content:", error);
+      }
+    };
 
     const renderIcon = (item: Data) => (
       <View
@@ -109,7 +121,7 @@ const ListItem = React.memo(
                   opacity: animatedValue,
                   transform: [
                     {
-                      translateX: animatedValue.interpolate({
+                      translateY: animatedValue.interpolate({
                         inputRange: [0, 1],
                         outputRange: [20, 0],
                       }),
@@ -158,30 +170,31 @@ const ListItem = React.memo(
             style={{ flex: 1 }}
             onPress={() => onPressLike(item.id)}
           >
-            <View style={{ flex: 1 }}>
-              <Text
-                style={{
-                  fontSize: 18,
-                  textAlign: "center",
-                  flexBasis: "50%",
-                  color: item.isDark ? "white" : "black",
-                  flex: 1,
-                }}
-              >
-                {isLiked ? "\u2665 Unlike" : "\u2661 Like"}
-              </Text>
-            </View>
+            <Text
+              style={{
+                fontSize: 18,
+                textAlign: "center",
+                color: item.isDark ? "white" : "black",
+                flex: 1,
+              }}
+            >
+              {isLiked ? "\u2665 Unlike" : "\u2661 Like"}
+            </Text>
           </TouchableOpacity>
-          <Text
-            style={{
-              fontSize: 18,
-              textAlign: "center",
-              flexBasis: "50%",
-              color: item.isDark ? "white" : "black",
-            }}
+          <TouchableOpacity
+            style={{ flex: 1 }}
+            onPress={() => shareContent(item)}
           >
-            {"\u21B1"} Share
-          </Text>
+            <Text
+              style={{
+                fontSize: 18,
+                textAlign: "center",
+                color: item.isDark ? "white" : "black",
+              }}
+            >
+              {"\u21B1"} Share
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
