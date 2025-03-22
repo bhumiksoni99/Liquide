@@ -55,34 +55,15 @@ const ListItem = React.memo(
       }
     };
 
-    const renderIcon = (item: Data) => (
-      <View
-        style={{
-          height: 40,
-          width: 40,
-          backgroundColor: "rgba(232, 232, 224, 0.2)",
-          alignItems: "center",
-          justifyContent: "center",
-          borderRadius: 6,
-        }}
-      >
-        <Text style={{ fontSize: 30, color: item.isDark ? "white" : "black" }}>
-          {"\u2B06"}
+    const renderIcon = (item: Data, icon: string) => (
+      <View style={styles.iconContainer}>
+        <Text style={{ fontSize: 24, color: item.isDark ? "white" : "black" }}>
+          {icon}
         </Text>
       </View>
     );
     return (
-      <View
-        style={{
-          paddingTop: StatusBar.currentHeight ?? 20 + 30,
-          zIndex: 1,
-          flex: 1,
-          paddingHorizontal: 24,
-          maxHeight: height,
-          flexDirection: "column",
-          justifyContent: "flex-start",
-        }}
-      >
+      <View style={styles.itemContainer}>
         <View
           style={{
             flexDirection: "row",
@@ -101,8 +82,8 @@ const ListItem = React.memo(
           </TouchableOpacity>
 
           <View style={{ flexDirection: "row", gap: 16 }}>
-            {renderIcon(item)}
-            {renderIcon(item)}
+            {renderIcon(item, "\u2605")}
+            {renderIcon(item, "\u2630")}
           </View>
         </View>
         <View
@@ -118,7 +99,7 @@ const ListItem = React.memo(
               style={[
                 {
                   color: item.isDark ? "white" : "black",
-                  fontSize: 20,
+                  fontSize: 24,
                   fontFamily: "Merriweather",
                 },
                 {
@@ -163,26 +144,16 @@ const ListItem = React.memo(
             />
           </View>
         </View>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: 20,
-          }}
-        >
+        <View style={styles.footer}>
           <TouchableOpacity
             style={{ flex: 1 }}
             onPress={() => onPressLike(item.id)}
           >
             <Text
-              style={{
-                fontSize: 16,
-                textAlign: "center",
-                color: item.isDark ? "white" : "black",
-                flex: 1,
-                fontFamily: "Merriweather",
-              }}
+              style={[
+                styles.option,
+                { color: item.isDark ? "white" : "black", flex: 1 },
+              ]}
             >
               {isLiked ? "\u2665 Unlike" : "\u2661 Like"}
             </Text>
@@ -192,12 +163,10 @@ const ListItem = React.memo(
             onPress={() => shareContent(item)}
           >
             <Text
-              style={{
-                fontSize: 16,
-                textAlign: "center",
-                color: item.isDark ? "white" : "black",
-                fontFamily: "Merriweather",
-              }}
+              style={[
+                styles.option,
+                { color: item.isDark ? "white" : "black" },
+              ]}
             >
               {"\u21B1"} Share
             </Text>
@@ -212,7 +181,7 @@ const styles = StyleSheet.create({
   bigText: {
     color: "white",
     marginTop: 16,
-    fontSize: 44,
+    fontSize: 50,
     textAlign: "center",
     fontFamily: "Merriweather",
   },
@@ -225,6 +194,34 @@ const styles = StyleSheet.create({
   textContainer: {
     flex: 1,
     marginRight: 10,
+  },
+  iconContainer: {
+    height: 40,
+    width: 40,
+    backgroundColor: "rgba(232, 232, 224, 0.2)",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 6,
+  },
+  itemContainer: {
+    marginTop: StatusBar.currentHeight,
+    zIndex: 1,
+    flex: 1,
+    paddingHorizontal: 24,
+    maxHeight: height,
+    flexDirection: "column",
+    justifyContent: "flex-start",
+  },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 36,
+  },
+  option: {
+    fontSize: 16,
+    textAlign: "center",
+    fontFamily: "Merriweather",
   },
 });
 
