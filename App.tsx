@@ -6,39 +6,43 @@ import {
   View,
   ImageBackground,
   Dimensions,
-  StatusBar,
-  Image,
   Animated,
+  ViewToken,
 } from "react-native";
 import { data } from "./data";
 import ListItem from "./components/ListItem";
+import { FlatList as NativeFlatList } from "react-native";
 
 const { width, height } = Dimensions.get("window");
 
 export default function App() {
   const animatedValues = useRef(data.map(() => new Animated.Value(0))).current;
 
-  const flatListRef = useRef(null);
+  const flatListRef = useRef<NativeFlatList | null>(null);
   const scrollPosition = useRef(0);
   const currentIndex = useRef(0);
 
-  const onScroll = (event) => {
+  const onScroll = (event: {
+    nativeEvent: { contentOffset: { y: number } };
+  }) => {
     scrollPosition.current = event.nativeEvent.contentOffset.y;
   };
 
   const viewabilityConfig = { viewAreaCoveragePercentThreshold: 90 };
 
-  const onViewableItemsChanged = ({ viewableItems }) => {
+  const onViewableItemsChanged = ({
+    viewableItems,
+  }: {
+    viewableItems: ViewToken[];
+  }) => {
     data.forEach((_, index) => {
       if (viewableItems.some((item) => item.index === index)) {
-        // Item is visible -> Restart animation
         Animated.timing(animatedValues[index], {
           toValue: 1,
           duration: 600,
           useNativeDriver: true,
         }).start();
       } else {
-        // Item is not visible -> Reset animation
         animatedValues[index].setValue(0);
       }
     });
@@ -55,10 +59,11 @@ export default function App() {
   const scrollToPrevious = () => {
     if (currentIndex.current > 0) {
       const prevIndex = currentIndex.current - 1;
-      flatListRef.current?.scrollToIndex({
-        index: prevIndex,
-        animated: true,
-      });
+      flatListRef.current &&
+        flatListRef.current?.scrollToIndex({
+          index: prevIndex,
+          animated: true,
+        });
       currentIndex.current = prevIndex;
     }
   };

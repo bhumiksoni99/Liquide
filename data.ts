@@ -1,4 +1,13 @@
-export const data = [
+import { ImageSourcePropType } from "react-native/types";
+
+export interface Data {
+  id: number;
+  city: string;
+  subText: string;
+  image: ImageSourcePropType;
+}
+
+export const data: Data[] = [
   {
     id: 1,
     city: "Mumbai",

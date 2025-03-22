@@ -10,20 +10,28 @@ import {
 } from "react-native";
 import React, { useEffect, useRef } from "react";
 import { CircularText } from "./CircularText";
+import { Data } from "../data";
 
 const { width, height } = Dimensions.get("window");
+
+interface Props {
+  item: Data;
+  index: number;
+  animatedValue: Animated.Value;
+  scrollToPrevious: () => void;
+}
 
 export default function ListItem({
   item,
   index,
   animatedValue,
   scrollToPrevious,
-}) {
-  const translateYAnim = useRef(new Animated.Value(20)).current; // Starts 20px lower
+}: Props) {
+  const translateYAnim = useRef(new Animated.Value(20)).current;
 
   useEffect(() => {
     Animated.timing(translateYAnim, {
-      toValue: 0, // Move text to original position
+      toValue: 0,
       duration: 800,
       useNativeDriver: true,
     }).start();

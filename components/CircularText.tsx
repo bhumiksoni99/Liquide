@@ -1,7 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import { View, Text, StyleSheet, Animated, Easing } from "react-native";
 
-export const CircularText = ({ text, radius }) => {
+export const CircularText = ({
+  text,
+  radius,
+}: {
+  text: string;
+  radius: number;
+}) => {
   const chars = text.split("");
   const textRadius = radius + 10;
   const rotateAnim = useRef(new Animated.Value(0)).current;
