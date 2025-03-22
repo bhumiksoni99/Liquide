@@ -154,7 +154,7 @@ const ListItem = React.memo(
           </View>
           <View>
             <CircularText
-              text={"Explore.Explore.Explore.Explore"}
+              text={"Explore.Explore.Explore.Explore."}
               radius={40}
             />
           </View>

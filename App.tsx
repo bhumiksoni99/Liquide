@@ -108,6 +108,7 @@ export default function App() {
               style={{ height, width }}
               resizeMode={"cover"}
             >
+              <View style={styles.overlay} />
               <ListItem
                 item={item}
                 index={index}
@@ -130,5 +131,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(0, 0, 0, 0.2)",
   },
 });
