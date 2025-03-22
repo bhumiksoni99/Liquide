@@ -55,6 +55,7 @@ export const CircularText = ({
               key={index}
               style={[
                 styles.char,
+                { fontFamily: "Merriweather" },
                 {
                   transform: [
                     { translateX: x },

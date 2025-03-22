@@ -74,7 +74,7 @@ const ListItem = React.memo(
     return (
       <View
         style={{
-          marginVertical: StatusBar.currentHeight ?? 20 + 30,
+          paddingTop: StatusBar.currentHeight ?? 20 + 30,
           zIndex: 1,
           flex: 1,
           paddingHorizontal: 24,
@@ -113,10 +113,14 @@ const ListItem = React.memo(
             justifyContent: "space-between",
           }}
         >
-          <View style={{ alignItems: "center" }}>
+          <View style={{ alignItems: "center", justifyContent: "flex-start" }}>
             <Animated.Text
               style={[
-                { color: item.isDark ? "white" : "black", fontSize: 24 },
+                {
+                  color: item.isDark ? "white" : "black",
+                  fontSize: 20,
+                  fontFamily: "Merriweather",
+                },
                 {
                   opacity: animatedValue,
                   transform: [
@@ -164,6 +168,7 @@ const ListItem = React.memo(
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
+            marginBottom: 20,
           }}
         >
           <TouchableOpacity
@@ -172,10 +177,11 @@ const ListItem = React.memo(
           >
             <Text
               style={{
-                fontSize: 18,
+                fontSize: 16,
                 textAlign: "center",
                 color: item.isDark ? "white" : "black",
                 flex: 1,
+                fontFamily: "Merriweather",
               }}
             >
               {isLiked ? "\u2665 Unlike" : "\u2661 Like"}
@@ -187,9 +193,10 @@ const ListItem = React.memo(
           >
             <Text
               style={{
-                fontSize: 18,
+                fontSize: 16,
                 textAlign: "center",
                 color: item.isDark ? "white" : "black",
+                fontFamily: "Merriweather",
               }}
             >
               {"\u21B1"} Share
@@ -204,9 +211,10 @@ const ListItem = React.memo(
 const styles = StyleSheet.create({
   bigText: {
     color: "white",
-    marginTop: 24,
-    fontSize: 52,
+    marginTop: 16,
+    fontSize: 44,
     textAlign: "center",
+    fontFamily: "Merriweather",
   },
   container: {
     flexDirection: "row",
@@ -217,16 +225,6 @@ const styles = StyleSheet.create({
   textContainer: {
     flex: 1,
     marginRight: 10,
-  },
-  text: {
-    fontSize: 16,
-    lineHeight: 24,
-  },
-  circle: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    backgroundColor: "blue",
   },
 });
 

@@ -12,11 +12,16 @@ import {
 import { data } from "./data";
 import ListItem from "./components/ListItem";
 import { FlatList as NativeFlatList } from "react-native";
+import { useFonts } from "expo-font";
 
 const { width, height } = Dimensions.get("window");
 
 export default function App() {
   const animatedValues = useRef(data.map(() => new Animated.Value(0))).current;
+
+  const [fontsLoaded] = useFonts({
+    Merriweather: require("./assets/fonts/Merriweather.ttf"),
+  });
 
   const flatListRef = useRef<NativeFlatList | null>(null);
   const scrollPosition = useRef(0);
@@ -134,6 +139,6 @@ const styles = StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(0, 0, 0, 0.2)",
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
   },
 });
