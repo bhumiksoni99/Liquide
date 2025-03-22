@@ -73,7 +73,7 @@ export default function App() {
       <FlatList
         ref={flatListRef}
         data={data}
-        initialNumToRender={1}
+        initialNumToRender={2}
         onViewableItemsChanged={onViewableItemsChanged}
         viewabilityConfig={viewabilityConfig}
         onScroll={onScroll}
@@ -83,6 +83,12 @@ export default function App() {
         decelerationRate="fast"
         showsVerticalScrollIndicator={false}
         pagingEnabled
+        getItemLayout={(_, index) => ({
+          length: height,
+          offset: height * index,
+          index,
+        })}
+        removeClippedSubviews={true}
         renderItem={({ item, index }) => (
           <View style={{ flex: 1 }}>
             <ImageBackground
