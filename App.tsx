@@ -11,7 +11,7 @@ import {
   Animated,
 } from "react-native";
 import { data } from "./data";
-import ListItem from "./ListItem";
+import ListItem from "./components/ListItem";
 
 const { width, height } = Dimensions.get("window");
 
@@ -26,7 +26,7 @@ export default function App() {
     scrollPosition.current = event.nativeEvent.contentOffset.y;
   };
 
-  const viewabilityConfig = { viewAreaCoveragePercentThreshold: 90 }; // Trigger when 50% visible
+  const viewabilityConfig = { viewAreaCoveragePercentThreshold: 90 };
 
   const onViewableItemsChanged = ({ viewableItems }) => {
     data.forEach((_, index) => {

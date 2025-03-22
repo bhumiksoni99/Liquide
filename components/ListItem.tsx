@@ -150,7 +150,6 @@ export default function ListItem({
           {"\u21B1"} Share
         </Text>
       </View>
-      {/* <FadingOverlay /> */}
     </View>
   );
 }
@@ -169,8 +168,8 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
   },
   textContainer: {
-    flex: 1, // Allows text to take the available space
-    marginRight: 10, // Provides spacing from the circle
+    flex: 1,
+    marginRight: 10,
   },
   text: {
     fontSize: 16,

@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Animated, Easing } from "react-native";
 export const CircularText = ({ text, radius }) => {
   const chars = text.split("");
   const textRadius = radius + 10;
-  const rotateAnim = useRef(new Animated.Value(0)).current; // Animated rotation
+  const rotateAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     Animated.loop(
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   textContainer: {
-    position: "absolute", // Keeps it centered
+    position: "absolute",
     justifyContent: "center",
     alignItems: "center",
   },
