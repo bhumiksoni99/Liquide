@@ -105,7 +105,7 @@ export const CircularText = ({
           <Text
             style={{
               fontSize: 48,
-              top: -16,
+              top: -12,
             }}
           >
             {"\u2192"}

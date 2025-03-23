@@ -57,7 +57,13 @@ const ListItem = React.memo(
 
     const renderIcon = (item: Data, icon: string) => (
       <View style={styles.iconContainer}>
-        <Text style={{ fontSize: 24, color: item.isDark ? "white" : "black" }}>
+        <Text
+          style={{
+            fontSize: 24,
+            color: item.isDark ? "white" : "black",
+            flexShrink: 1,
+          }}
+        >
           {icon}
         </Text>
       </View>
@@ -74,14 +80,14 @@ const ListItem = React.memo(
           <TouchableOpacity onPress={scrollToPrevious}>
             {index > 0 && (
               <Text
-                style={{ fontSize: 48, color: item.isDark ? "white" : "black" }}
+                style={{ fontSize: 40, color: item.isDark ? "white" : "black" }}
               >
                 {"\u2B06"}
               </Text>
             )}
           </TouchableOpacity>
 
-          <View style={{ flexDirection: "row", gap: 16 }}>
+          <View style={{ flexDirection: "row", gap: 16, alignItems: "center" }}>
             {renderIcon(item, "\u2605")}
             {renderIcon(item, "\u2630")}
           </View>
