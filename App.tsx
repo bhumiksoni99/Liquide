@@ -28,6 +28,8 @@ export default function App() {
   const currentIndex = useRef(0);
   const [likedItems, setLikedItems] = useState<Array<number>>([]);
 
+  if (!fontsLoaded) return;
+
   const onScroll = (event: {
     nativeEvent: { contentOffset: { y: number } };
   }) => {
@@ -64,7 +66,6 @@ export default function App() {
 
   const onPressLike = (id: number) => {
     const isLiked = likedItems.includes(id);
-    console.log(id, isLiked);
     if (isLiked) {
       const updatedLikes = likedItems.filter((l) => l !== id);
       setLikedItems(updatedLikes);
