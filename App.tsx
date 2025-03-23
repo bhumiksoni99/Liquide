@@ -92,6 +92,7 @@ export default function App() {
         ref={flatListRef}
         data={data}
         initialNumToRender={2}
+        windowSize={7}
         onViewableItemsChanged={onViewableItemsChanged}
         viewabilityConfig={viewabilityConfig}
         onScroll={onScroll}
