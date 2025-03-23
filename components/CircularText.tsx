@@ -27,7 +27,7 @@ export const CircularText = ({
     Animated.loop(
       Animated.parallel([
         Animated.timing(scaleAnim, {
-          toValue: 1.2,
+          toValue: 1.4,
           duration: 1500,
           easing: Easing.linear,
           useNativeDriver: true,
