@@ -11,6 +11,8 @@ export const CircularText = ({
   const chars = text.split("");
   const textRadius = radius + 10;
   const rotateAnim = useRef(new Animated.Value(0)).current;
+  const scaleAnim = useRef(new Animated.Value(0)).current;
+  const opacityAnim = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
     Animated.loop(
@@ -21,6 +23,23 @@ export const CircularText = ({
         useNativeDriver: true,
       })
     ).start();
+
+    Animated.loop(
+      Animated.parallel([
+        Animated.timing(scaleAnim, {
+          toValue: 1.2,
+          duration: 1500,
+          easing: Easing.linear,
+          useNativeDriver: true,
+        }),
+        Animated.timing(opacityAnim, {
+          toValue: 0,
+          duration: 1500,
+          easing: Easing.linear,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
   }, []);
 
   const rotateInterpolate = rotateAnim.interpolate({
@@ -29,56 +48,69 @@ export const CircularText = ({
   });
 
   return (
-    <View
-      style={[
-        styles.container,
-        { width: textRadius * 2, height: textRadius * 2 },
-      ]}
-    >
+    <View style={styles.container}>
       <Animated.View
         style={[
-          styles.textContainer,
+          styles.outlineCircle,
           {
-            width: textRadius * 2,
-            height: textRadius * 2,
-            transform: [{ rotate: rotateInterpolate }],
+            transform: [{ scale: scaleAnim }],
+            opacity: opacityAnim,
           },
         ]}
+      />
+      <View
+        style={[
+          styles.container,
+          { width: textRadius * 2, height: textRadius * 2 },
+        ]}
       >
-        {chars.map((char, index) => {
-          const angle = (360 / chars.length) * index;
-          const x = textRadius * Math.cos((angle * Math.PI) / 180);
-          const y = textRadius * Math.sin((angle * Math.PI) / 180);
-
-          return (
-            <Text
-              key={index}
-              style={[
-                styles.char,
-                { fontFamily: "Merriweather" },
-                {
-                  transform: [
-                    { translateX: x },
-                    { translateY: y },
-                    { rotate: `${angle + 90}deg` },
-                  ],
-                },
-              ]}
-            >
-              {char}
-            </Text>
-          );
-        })}
-      </Animated.View>
-      <View style={[styles.circle, { width: radius * 2, height: radius * 2 }]}>
-        <Text
-          style={{
-            fontSize: 48,
-            top: -16,
-          }}
+        <Animated.View
+          style={[
+            styles.textContainer,
+            {
+              width: textRadius * 2,
+              height: textRadius * 2,
+              transform: [{ rotate: rotateInterpolate }],
+            },
+          ]}
         >
-          {"\u2192"}
-        </Text>
+          {chars.map((char, index) => {
+            const angle = (360 / chars.length) * index;
+            const x = textRadius * Math.cos((angle * Math.PI) / 180);
+            const y = textRadius * Math.sin((angle * Math.PI) / 180);
+
+            return (
+              <Text
+                key={index}
+                style={[
+                  styles.char,
+                  { fontFamily: "Merriweather" },
+                  {
+                    transform: [
+                      { translateX: x },
+                      { translateY: y },
+                      { rotate: `${angle + 90}deg` },
+                    ],
+                  },
+                ]}
+              >
+                {char}
+              </Text>
+            );
+          })}
+        </Animated.View>
+        <View
+          style={[styles.circle, { width: radius * 2, height: radius * 2 }]}
+        >
+          <Text
+            style={{
+              fontSize: 48,
+              top: -16,
+            }}
+          >
+            {"\u2192"}
+          </Text>
+        </View>
       </View>
     </View>
   );
@@ -107,5 +139,14 @@ const styles = StyleSheet.create({
     position: "absolute",
     justifyContent: "center",
     alignItems: "center",
+  },
+  outlineCircle: {
+    borderWidth: 2,
+    borderColor: "#fff",
+    borderRadius: 100,
+    padding: 12,
+    position: "absolute",
+    height: 120,
+    width: 120,
   },
 });
